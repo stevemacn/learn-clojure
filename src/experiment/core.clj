@@ -20,4 +20,18 @@
   )
 )
 
-(power 3 2)d
+(defn power2 [c, a]
+  (loop [b c e a]
+    (println b e)
+    (cond
+      (= e 0) 1
+      (= e 1) b
+      :else (recur (* b c) (- e 1))
+    )
+  )
+)
+
+
+(println "tail recursion (exponent):" (power 2 5))
+(println "real tail recur (exponent):" (power2 2 5))
+
