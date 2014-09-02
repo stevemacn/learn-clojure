@@ -7,10 +7,17 @@
 (defn -main [& args]
   (println "Working!"))
 
-(defn foo [x]
-  (println x)
-  (println (sort x))
+;trying to learn recursion
+;calculate b^e recursively
+(defn power [b, e]
+  (println b e)
+
+  (cond
+    (= e 0) 1
+    (= e 1) b
+    ;tail recursion (hopefully)
+    :else (* b (power b (- e 1)))
   )
+)
 
-(println ( foo '(2 4 1 5 3 9 6 8 10 7)))
-
+(power 3 2)d
