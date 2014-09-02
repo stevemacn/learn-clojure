@@ -35,3 +35,15 @@
 (println "tail recursion (exponent):" (power 2 5))
 (println "real tail recur (exponent):" (power2 2 5))
 
+
+
+
+(defn factorial [x]
+  (loop [n x f 1]
+    (if (= n 1)
+      f
+      (recur (dec n) (* f n))
+    )
+  )
+)
+(println (factorial 5))
