@@ -76,3 +76,31 @@
     )
   )
 
+;merge sorted lists in clojure
+(defn merge-list [a b]
+
+    (println a b)
+
+    (cond
+      (empty? a) b
+      (empty? b) a
+      (<= (first a) (first b))  (cons (first a) (merge-list (rest a) b))
+      :else  (cons (first b) (merge-list a (rest b)))
+    )
+)
+
+(println (merge-list '(1 3 7 9 10 11) '(2 4 7 8)))
+
+;finding the maximum value (Lisp practice)
+(defn max-list-val [x]
+
+  (cond
+    (empty? x) nil
+    (empty? (rest x)) (first x)
+    (< (max-list-val (rest x)) (first x)) (first x)
+    :else (max-list-val (rest x))
+  )
+)
+
+(println "Maximum value in list:" (max-list-val '(1 2 11 9 4 7)))
+
