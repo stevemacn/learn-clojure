@@ -5,6 +5,7 @@
             :url "http://mit.edu"}
   :dependencies [
     [org.clojure/clojure "1.6.0"]
+    [org.clojure/math.numeric-tower "0.0.4"]
   ]
   :dev-dependencies [
     [no-man-is-an-island/lein-eclipse "2.0.0"]          
