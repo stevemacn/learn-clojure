@@ -6,7 +6,9 @@
   :dependencies [
     [org.clojure/clojure "1.6.0"]
     [org.clojure/math.numeric-tower "0.0.4"]
-  ]
+    [org.clojure/math.combinatorics "0.0.8"]
+    [org.clojure/core.logic "0.8.8"]
+    ]
   :dev-dependencies [
     [no-man-is-an-island/lein-eclipse "2.0.0"]          
   ]
