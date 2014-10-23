@@ -11,7 +11,6 @@
   (println "Working!"))
 
 
-
   (println "tail recursion (exponent):" (experiment.practice/power 2 5))
   (println "real tail recur (exponent):" (experiment.practice/power-tco 2 5))
   (println "calculate factorial" (experiment.practice/factorial 5))
@@ -34,4 +33,8 @@
            (experiment.practice/find-missing '(3, 1, 2, 7, 5, 6, 8, 11, 22, 13) '(3, 1, 2, 7, 5, 11, 6, 22, 13)))
 
 
+  (println "naive permutation implementation" (experiment.practice/permute-naive #{"a" "b" "c" "d"}) )
+  (println "lazy permutation implementation" (experiment.practice/permute-lazy #{"a" "b" "c" "d"}) )
+  (println "my permutation implementation" (experiment.practice/permute-mine #{"a" "b" "c" "d"}) )
 
+  (experiment.game/run 1)

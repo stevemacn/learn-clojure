@@ -126,3 +126,35 @@
 
 ;currently checks if the number is the center of the list. (8 worst-case 4 touches)
 ;(println (binary-search '(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18) 8))
+
+; my haskell version
+; concatMap (\x -> map (x:) $ permute $ delete x xs) xs
+; #() == lambda, #{} == set - don't ever mix them up again!
+
+(require '[clojure.math.combinatorics :as comb])
+
+;naive approach
+(defn permute-naive [xs]
+  (comb/permutations #{"a" "b" "c" "d"})
+  )
+
+;lazy implementation (stolen from online)
+(defn permute-lazy [s]
+  (lazy-seq
+    (if (seq (rest s))
+      (apply concat (for [x s]
+                      (map #(cons x %) (permute-lazy (remove #{x} s)))))
+      [s])))
+
+
+;how to indicate that remove item belongs to permute mine? namespace them?
+(defn remove-item [x xs]
+  (remove #{x} xs )
+  )
+
+(defn permute-mine [xs]
+  (if (= (count xs) 1)  ;super inefficient - maybe use 'empty?'
+    (list (seq xs))
+    (mapcat #(map (partial cons %) (permute-mine (remove-item % xs))) xs)
+    )
+  )
