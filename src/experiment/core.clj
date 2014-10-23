@@ -10,5 +10,5 @@
 (defn -main [& args]
   (println "Working!"))
 
-  (experiment.practice/demo)
+;(experiment.practice/demo)
   (experiment.game/run 1)
