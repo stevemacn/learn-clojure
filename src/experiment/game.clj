@@ -32,11 +32,14 @@
   (println (first user) "- who is the double-agent?")
 )
 
-
 ;Game Loop: keeps the villains the same and updates the suspects to display a different number each time.
-(defn game-loop [villains z, users]
+(defn game-loop [villains users]
 
-  (loop [x villains y (get-suspects 5) z z, users users]
+  (print "Welcome players! ")
+  (print-characters users)
+
+  ;initialize the recursive game loop
+  (loop [x villains y (get-suspects 5) player1 (last users), users users]
 
     (println x)
     (print-game-state x y users)
@@ -45,12 +48,11 @@
     (let [line (read-line)]
       (if (not (= line "skip"))
         (if (contains? (set x) line)
-          (println "win")                                   ;remove villain from group.
-          (println "lose"))                                 ;remove player from game.
-        (if (= z 0)
-          0
-          (recur x (get-suspects 5) (dec z) (cons (last users) (butlast users)) ))
-      )
+          (println  "win")        ;remove villain from group.
+          (println "lose"))       ;remove player from game.
+
+        (recur x (if (= (first users) player1) (get-suspects 5) y )  player1 (cons (last users) (butlast users))))
+
     )
 
   )
@@ -65,16 +67,13 @@
   (println "Please type the name for each player (press only enter to start playing)")
 
   (loop [x '()]
-    (println x)
     (let [line (read-line)]
       (if (= line "")
-        (game-loop (get-suspects 3) 4 x))
+        (game-loop (get-suspects 3) x))
         (recur (concat x (list line)))
     )
   )
 )
-
-
 
 ;open questions
 ;
