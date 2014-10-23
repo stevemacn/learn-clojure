@@ -24,12 +24,21 @@
 
   (loop [x villains y (get-suspects 5) z z]
 
-    (println "characters are" y)
-    (println "villains are" x)
 
-    (println (count-occurences x y))
+    (println x)
+    (println "The characters are" y)
+    (println (count-occurences x y) "are villains!")
 
-    (if (= z 0) 0 (recur x (get-suspects 5) (dec z) ))
+    ;(println "villains are" x)
+    (println "username," "who is the double-agent?")
+    ;take command from user and check to see if they win or loose
+    (let [line (read-line)]
+      (if (not (= line "skip"))
+        (if (contains? (set x) line) (println "win") (println "lose"))
+        (if (= z 0) 0 (recur x (get-suspects 5) (dec z) ))
+      )
+    )
+
   )
 )
 
