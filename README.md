@@ -14,7 +14,10 @@ Problems Solved (so far)
     * binary search
     * maximum value
     * merge (two sorted lists)
-
+    * find missing element using binary search
+    * permutations
+      * lazy (from stackoverflow)
+      * my approach (not performant)
 
 Usage 
 ---
