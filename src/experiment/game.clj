@@ -20,18 +20,21 @@
       (if (contains? (set ys) (first xs)) 1 0)
       (count-occurences (rest xs) ys))))
 
-(defn game-loop [villains]
+(defn game-loop [villains z]
 
-  (loop [x villains y (get-suspects 5)]
+  (loop [x villains y (get-suspects 5) z z]
 
     (println "characters are" y)
     (println "villains are" x)
 
     (println (count-occurences x y))
-))
+
+    (if (= z 0) 0 (recur x (get-suspects 5) (dec z) ))
+  )
+)
 
 (defn run [x]
-  (game-loop (get-suspects 3)))
+  (game-loop (get-suspects 3) 4))
 
 
 
