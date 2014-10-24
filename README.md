@@ -19,7 +19,7 @@ Problems Solved (so far)
       * lazy (from stackoverflow)
       * my approach (not performant)
        
-Highlights
+A Functioning Functional Game
 --
 
 The game namespace features a full spy-themed *functioning fucntional* game, "Three of a Crime." 
