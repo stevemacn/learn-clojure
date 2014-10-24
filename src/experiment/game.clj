@@ -32,6 +32,13 @@
   (println (first user) "- who is the double-agent? Type skip if you don't know")
 )
 
+
+(defn select-suspect [x xs]
+
+  (take x (shuffle xs))
+)
+
+
 ;Game Loop: keeps the villains the same and updates the suspects to display a different number each time.
 (defn game-loop [villains users]
 
@@ -39,8 +46,8 @@
   (print-characters users)
 
   ;initialize the recursive game loop
-  (loop [x villains y (get-suspects 5) player1 (last users), users users]
-    (print-game-state x y users)
+  (loop [x villains y (shuffle (get-characters)) player1 (last users), users users]
+    (print-game-state x (take 5 y)  users)
 
     ;take command from user and check to see if they win or loose
     (let [line (read-line)]
@@ -50,22 +57,25 @@
             (println (first users) "burned double agent" line)
             (if (empty? (butlast x) )
               (println (first users) "wins!")
-              (recur (remove-character line x) (if (= (first users) player1) (get-suspects 5) y )  player1 (cons (last users) (butlast users)))
+              (recur (remove-character line x) (shuffle (remove-character line y)) player1 users)
             )
           )
           (do
             (println (first users) "is now missing in action")
             (if (empty? (butlast users))
               (println "All players are missing in action - game over.")
-              (recur x (if (= (first users) player1) (get-suspects 5) y )  player1 (rest users))
+              (recur x (shuffle y) player1 (rest users))
             )
           ))
-          (recur x (if (= (first users) player1) (get-suspects 5) y )  player1 (cons (last users) (butlast users)))
+          (recur x (if (= (first users) player1) (shuffle y) y) player1 (cons (last users) (butlast users)))
         ))))
 
 ;======Initialize the game====
 ; Run: set up the number of players and start the game loop.
 (defn run [x]
+  ;<- here we allow people to start playing register
+  ;the number of players and pass that to the game loop
+
   (println "Please type the name for each player (press only enter to start playing)")
 
   (loop [x '()]
