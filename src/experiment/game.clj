@@ -29,7 +29,7 @@
 (defn print-game-state [x y user]
   (println "The characters are" y)
   (println (count-occurences x y) "are villains!")
-  (println (first user) "- who is the double-agent?")
+  (println (first user) "- who is the double-agent? Type skip if you don't know")
 )
 
 ;Game Loop: keeps the villains the same and updates the suspects to display a different number each time.
@@ -40,30 +40,32 @@
 
   ;initialize the recursive game loop
   (loop [x villains y (get-suspects 5) player1 (last users), users users]
-
-    (println x)
     (print-game-state x y users)
 
     ;take command from user and check to see if they win or loose
     (let [line (read-line)]
       (if (not (= line "skip"))
         (if (contains? (set x) line)
-          (println  "win")        ;remove villain from group.
-          (println "lose"))       ;remove player from game.
-
-        (recur x (if (= (first users) player1) (get-suspects 5) y )  player1 (cons (last users) (butlast users))))
-
-    )
-
-  )
-)
+          (do
+            (println (first users) "burned double agent" line)
+            (if (empty? (butlast x) )
+              (println (first users) "wins!")
+              (recur (remove-character line x) (if (= (first users) player1) (get-suspects 5) y )  player1 (cons (last users) (butlast users)))
+            )
+          )
+          (do
+            (println (first users) "is now missing in action")
+            (if (empty? (butlast users))
+              (println "All players are missing in action - game over.")
+              (recur x (if (= (first users) player1) (get-suspects 5) y )  player1 (rest users))
+            )
+          ))
+          (recur x (if (= (first users) player1) (get-suspects 5) y )  player1 (cons (last users) (butlast users)))
+        ))))
 
 ;======Initialize the game====
 ; Run: set up the number of players and start the game loop.
 (defn run [x]
-  ;<- here we allow people to start playing register
-  ;the number of players and pass that to the game loop
-
   (println "Please type the name for each player (press only enter to start playing)")
 
   (loop [x '()]
@@ -74,15 +76,4 @@
     )
   )
 )
-
-;open questions
-;
-; how do we break out of the game loop on game end (win or lose)?
-; all players gone: "you all lose"
-; all villains gone: congrats to player guessing - you win
-
-
-
-
-
 
