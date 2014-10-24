@@ -32,13 +32,6 @@
   (println (first user) "- who is the double-agent? Type skip if you don't know")
 )
 
-
-(defn select-suspect [x xs]
-
-  (take x (shuffle xs))
-)
-
-
 ;Game Loop: keeps the villains the same and updates the suspects to display a different number each time.
 (defn game-loop [villains users]
 
@@ -73,8 +66,6 @@
 ;======Initialize the game====
 ; Run: set up the number of players and start the game loop.
 (defn run [x]
-  ;<- here we allow people to start playing register
-  ;the number of players and pass that to the game loop
 
   (println "Please type the name for each player (press only enter to start playing)")
 
@@ -82,8 +73,5 @@
     (let [line (read-line)]
       (if (= line "")
         (game-loop (get-suspects 3) x))
-        (recur (concat x (list line)))
-    )
-  )
-)
+        (recur (concat x (list line))))))
 
